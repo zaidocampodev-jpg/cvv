@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-dark: #050507;
+  /* Colores para el borde y fondo del cristal */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden; /* Evita scroll en todo el body */
+}
+
+/* Scrollbar ultra minimalista para las vistas internas */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@layer components {
+  /* EL VERDADERO EFECTO LIQUID/FROSTED GLASS */
+  .glass-premium {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  /* Textos Base */
+  .section-label {
+    @apply text-[#facc15] font-semibold tracking-[0.2em] text-[10px] sm:text-xs mb-4 uppercase flex items-center gap-2;
+  }
+  .section-label::before {
+    content: '';
+    @apply w-2 h-2 bg-[#facc15] rounded-full inline-block;
+  }
+  
+  .section-title {
+    @apply text-5xl sm:text-6xl font-bold text-white tracking-tight leading-tight;
+  }
+  .section-title span {
+    @apply text-white/30;
+  }
+}
+
+/* Luces flotantes sutiles (no invasivas) */
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.animate-float-1 {
+  animation: float 15s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float 20s ease-in-out infinite reverse;
+}
+
+/* Entrada fluida */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
